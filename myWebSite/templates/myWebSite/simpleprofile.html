@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <h2>Welcome {{name}} </h2>
+   
+    <form action="" method="post" novalidate>
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+    {{error}}
+    {% endfor %}
+    {% endif %}
+
+    {% for fm in form %}
+    {{fm.label_tag}} {{fm}}{{fm.errors|striptags}} <br> <br>
+    {% endfor %}    
+    
+    <input type="submit" value="save">
+    </form>
+    {% if messages %}
+    {% for message in messages %}
+     <span {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</span> <br>
+    {% endfor %}
+    {% endif %}
+    <a href="{% url 'changepass' %}">Password Change</a>
+    {% comment %} <a href="{% url 'changepass1' %}">Password Change</a> {% endcomment %}
+    <a href="{% url 'logout' %}">Logout</a>
+</body>
+</html>

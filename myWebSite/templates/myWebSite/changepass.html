@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Password</title>
+</head>
+<style>
+    .info{
+        color:green;
+    }
+</style>
+
+<body>
+    {% if messages %}
+    {% for message in messages %}
+     <span {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</span> <br>
+    {% endfor %}
+    {% endif %}
+    <form action="" method="post">
+    {% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+    {{error}}
+    {% endfor %}
+    {% endif %}
+        
+    {% csrf_token %}
+    {% for fm in form %}
+    {{fm.label_tag}} {{fm}}{{fm.errors|striptags}} <br> <br>
+    {% endfor %}
+  
+    {% csrf_token %}
+     <p class="change"><input type="submit" value="Change Password"> </p>
+    </form>
+ 
+    <a href="{% url 'profile' %}">Profile</a>
+    <a href="{% url 'logout' %}">Logout</a>
+    
+
+    
+</body>
+</html>
